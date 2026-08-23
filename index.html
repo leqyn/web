@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TỔ CHUYÊN MÔN 4 - 5</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    [hidden] {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Banner & Header -->
+  <header>
+    <h1>TỔ CHUYÊN MÔN 4 + 5</h1>
+    <p>Năm học 2026 - 2027 | TRƯỜNG TIỂU HỌC VÀ TRUNG HỌC CƠ SỞ VIỆT DÂN </p>
+  </header>
+
+  <!-- Navigation Menu -->
+  <nav>
+    <a href="#trang-chu" class="nav-link active" onclick="showSection('trang-chu')">TRANG CHỦ</a>
+    <a href="#ke-hoach" class="nav-link" onclick="showSection('ke-hoach')">KẾ HOẠCH GIÁO DỤC</a>
+    <a href="#giao-an" class="nav-link" onclick="showSection('giao-an')">QUẢN LÝ GIÁO ÁN</a>
+    <a href="#sinh-hoat" class="nav-link" onclick="showSection('sinh-hoat')">SINH HOẠT CHUYÊN MÔN</a>
+    <a href="#danh-gia" class="nav-link" onclick="showSection('danh-gia')">KIỂM TRA & ĐÁNH GIÁ</a>
+    <a href="#hoc-lieu" class="nav-link" onclick="showSection('hoc-lieu')">KHO HỌC LIỆU SỐ</a>
+    <a href="#gop-y" class="nav-link" onclick="showSection('gop-y')">LƯU TRỮ & GÓP Ý</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- 1. Trang Chủ -->
+    <section id="trang-chu" class="content-section active">
+      <h2>1. Trang chủ (Tổng quan)</h2>
+      <div class="card">
+        <h3>Giới thiệu thành viên tổ</h3>
+        <p>Danh sách và phân công nhiệm vụ giáo viên Khối 4 và Khối 5.</p>
+        <button type="button" id="show-member-form">Thêm</button>
+        <form id="member-form" class="member-form" hidden>
+          <input type="text" id="member-name" placeholder="Họ và tên" required>
+          <input type="text" id="member-role" placeholder="Chức vụ hoặc nhiệm vụ (Không bắt buộc)">
+          <input type="file" id="member-file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+          <button type="submit">Thêm thành viên</button>
+        </form>
+        <ul id="member-list" class="member-list"></ul>
+      </div>
+      <div class="card">
+        <h3>Thông báo nhanh</h3>
+        <p>Cập nhật chỉ thị, thông báo mới nhất từ Ban Giám Hiệu và Tổ trưởng.</p>
+        <button type="button" id="show-notice-form">Thêm</button>
+        <form id="notice-form" class="notice-upload-form" hidden>
+          <input type="file" id="notice-files" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*" multiple required>
+          <button type="submit">Tải tệp lên</button>
+        </form>
+        <table id="notice-file-table" class="quick-file-list" hidden>
+          <thead><tr><th>Thao tác</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div id="notice-viewer" class="notice-viewer" hidden>
+          <div class="notice-viewer-header">
+            <strong id="notice-viewer-title"></strong>
+            <a id="notice-viewer-download" href="#">Tải xuống</a>
+          </div>
+          <div id="notice-viewer-body" class="notice-viewer-body"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Lịch công tác tuần / Tháng</h3>
+        <p>Lịch họp tổ, lịch dự giờ, tuần kiểm tra định kỳ.</p>
+        <button type="button" id="show-schedule-form">Thêm</button>
+        <form id="schedule-form" class="schedule-form" hidden>
+          <input type="text" id="schedule-date" placeholder="Ngày hoặc tuần" required>
+          <input type="text" id="schedule-content" placeholder="Nội dung lịch công tác" required>
+          <textarea id="inspection-content" placeholder="Nội dung kiểm tra" required></textarea>
+          <button type="submit">Lưu lịch</button>
+        </form>
+        <table id="schedule-table" class="schedule-table" hidden>
+          <thead><tr><th>Ngày/tuần</th><th>Lịch công tác</th><th>Nội dung kiểm tra</th><th>Thao tác</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 2. Kế Hoạch Giáo Dục -->
+    <section id="ke-hoach" class="content-section">
+      <h2>2. Kế hoạch giáo dục</h2>
+      <div class="card">
+        <h3>Kế hoạch chung</h3>
+        <p>Kế hoạch năm học của nhà trường và tổ chuyên môn Khối 4 - 5.</p>
+        <button type="button" class="show-plan-form" data-plan-id="ke-hoach-chung">Thêm</button>
+        <form class="plan-upload-form" data-plan-id="ke-hoach-chung" hidden>
+          <input type="text" name="uploader" placeholder="Tên người nộp" required>
+          <input type="file" name="lesson-plan" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple required>
+          <button type="submit">Tải giáo án lên</button>
+        </form>
+        <table class="plan-file-list" data-plan-id="ke-hoach-chung" hidden>
+          <thead><tr><th>Người nộp</th><th>Tệp giáo án</th><th>Thao tác</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="plan-pagination" data-plan-id="ke-hoach-chung" hidden></div>
+      </div>
+      <div class="card">
+        <h3>Phân phối chương trình</h3>
+        <p>Chương trình chi tiết các môn học Khối 4 và Khối 5 (GDPT 2018).</p>
+        <button type="button" class="show-plan-form" data-plan-id="phan-phoi-chuong-trinh">Thêm</button>
+        <form class="plan-upload-form" data-plan-id="phan-phoi-chuong-trinh" hidden>
+          <input type="text" name="uploader" placeholder="Tên người nộp" required>
+          <input type="file" name="lesson-plan" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple required>
+          <button type="submit">Tải tệp lên</button>
+        </form>
+        <table class="plan-file-list" data-plan-id="phan-phoi-chuong-trinh" hidden>
+          <thead><tr><th>Người nộp</th><th>Tệp giáo án</th><th>Thao tác</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="plan-pagination" data-plan-id="phan-phoi-chuong-trinh" hidden></div>
+      </div>
+      <div class="card">
+        <h3>Kế hoạch tuần (Tuần 1 - 35)</h3>
+        <p>Theo dõi tiến độ thực hiện kế hoạch giảng dạy từng tuần.</p>
+        <button type="button" class="show-plan-form" data-plan-id="ke-hoach-tuan">Thêm</button>
+        <form class="plan-upload-form" data-plan-id="ke-hoach-tuan" hidden>
+          <input type="text" name="uploader" placeholder="Tên người nộp" required>
+          <input type="file" name="lesson-plan" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple required>
+          <button type="submit">Tải kế hoạch lên</button>
+        </form>
+        <table class="plan-file-list" data-plan-id="ke-hoach-tuan" hidden>
+          <thead><tr><th>Người nộp</th><th>Tệp giáo án</th><th>Thao tác</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="plan-pagination" data-plan-id="ke-hoach-tuan" hidden></div>
+      </div>
+    </section>
+
+    <!-- 3. Quản Lý Giáo Án -->
+    <section id="giao-an" class="content-section">
+      <h2>3. Quản lý giáo án (Bài dạy)</h2>
+      <div class="card">
+        <h3>Kho nộp giáo án</h3>
+        <p>Nơi giáo viên tải/nộp bài dạy hàng tuần lên thư mục Drive dùng chung.</p>
+        <button type="button" id="show-lesson-file-form">Thêm</button>
+        <form id="lesson-file-form" class="lesson-file-form" hidden>
+          <input type="file" id="lesson-files" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple required>
+          <button type="submit">Tải giáo án lên</button>
+        </form>
+        <table id="lesson-file-table" class="lesson-file-table" hidden>
+          <thead><tr><th>Tên file</th><th>Ngày gửi</th><th>Xem trước</th><th>Xóa</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div id="lesson-file-pagination" class="lesson-file-pagination" hidden></div>
+      </div>
+      <div class="card">
+        <h3>Sổ ký duyệt electronic</h3>
+        <p>Tổ trưởng/Tổ phó ghi nhận xét và phê duyệt giáo án trực tuyến.</p>
+      </div>
+    </section>
+
+    <!-- 4. Sinh Hoạt Chuyên Môn -->
+    <section id="sinh-hoat" class="content-section">
+      <h2>4. Sinh hoạt chuyên môn</h2>
+      <div class="card">
+        <h3>Biên bản họp tổ</h3>
+        <p>Lưu trữ biên bản các buổi sinh hoạt chuyên môn định kỳ (2 tuần/lần).</p>
+      </div>
+      <div class="card">
+        <h3>Chuyên đề & nghiên cứu bài học</h3>
+        <p>Báo cáo chuyên đề, đổi mới phương pháp dạy học cấp Khối/Trường.</p>
+      </div>
+      <div class="card">
+        <h3>Bồi dưỡng thường xuyên</h3>
+        <p>Tài liệu bồi dưỡng và minh chứng hoàn thành các Module bồi dưỡng.</p>
+      </div>
+    </section>
+
+    <!-- 5. Kiểm Tra & Đánh Giá -->
+    <section id="danh-gia" class="content-section">
+      <h2>5. Kiểm tra & đánh giá</h2>
+      <div class="card">
+        <h3>Ngân hàng đề thi</h3>
+        <p>Đề thi minh họa & chính thức Giữa kỳ, Cuối kỳ (Toán, Tiếng Việt, Khoa học, Lịch sử & Địa lý).</p>
+        <button type="button" class="show-evaluation-form" data-evaluation-id="ngan-hang-de-thi">Thêm</button>
+        <form class="evaluation-upload-form" data-evaluation-id="ngan-hang-de-thi" hidden>
+          <input type="file" name="evaluation-files" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,image/*,video/*" multiple required>
+          <button type="submit">Tải tệp lên</button>
+        </form>
+        <table class="evaluation-file-table" data-evaluation-id="ngan-hang-de-thi" hidden>
+          <thead><tr><th>Tên file</th><th>Ngày gửi</th><th>Xem trước</th><th>Xóa</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="evaluation-pagination" data-evaluation-id="ngan-hang-de-thi" hidden></div>
+      </div>
+      <div class="card">
+        <h3>Ma trận & đề cương</h3>
+        <p>Biểu mẫu thiết kế ma trận đề kiểm tra đánh giá.</p>
+        <button type="button" class="show-evaluation-form" data-evaluation-id="ma-tran-de-cuong">Thêm</button>
+        <form class="evaluation-upload-form" data-evaluation-id="ma-tran-de-cuong" hidden>
+          <input type="file" name="evaluation-files" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,image/*,video/*" multiple required>
+          <button type="submit">Tải tệp lên</button>
+        </form>
+        <table class="evaluation-file-table" data-evaluation-id="ma-tran-de-cuong" hidden>
+          <thead><tr><th>Tên file</th><th>Ngày gửi</th><th>Xem trước</th><th>Xóa</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="evaluation-pagination" data-evaluation-id="ma-tran-de-cuong" hidden></div>
+      </div>
+      <div class="card">
+        <h3>Thống kê chất lượng</h3>
+        <p>Báo cáo tỷ lệ Hoàn thành tốt, Hoàn thành, Chưa hoàn thành theo đợt.</p>
+        <button type="button" class="show-evaluation-form" data-evaluation-id="thong-ke-chat-luong">Thêm</button>
+        <form class="evaluation-upload-form" data-evaluation-id="thong-ke-chat-luong" hidden>
+          <input type="file" name="evaluation-files" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,image/*,video/*" multiple required>
+          <button type="submit">Tải tệp lên</button>
+        </form>
+        <table class="evaluation-file-table" data-evaluation-id="thong-ke-chat-luong" hidden>
+          <thead><tr><th>Tên file</th><th>Ngày gửi</th><th>Xem trước</th><th>Xóa</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="evaluation-pagination" data-evaluation-id="thong-ke-chat-luong" hidden></div>
+      </div>
+    </section>
+
+    <!-- 6. Kho Học Liệu Số -->
+    <section id="hoc-lieu" class="content-section">
+      <h2>6. Kho học liệu số</h2>
+      <div class="card">
+        <h3>Bài giảng điện tử</h3>
+        <p>Kho lưu trữ Slide PowerPoint bài giảng hay Khối 4 và Khối 5.</p>
+        <button type="button" class="show-resource-form" data-resource-id="bai-giang-dien-tu">Thêm</button>
+        <form class="resource-upload-form" data-resource-id="bai-giang-dien-tu" hidden>
+          <input type="file" name="resource-files" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,image/*,video/*" multiple required>
+          <button type="submit">Tải tệp lên</button>
+        </form>
+        <table class="resource-file-table" data-resource-id="bai-giang-dien-tu" hidden>
+          <thead><tr><th>Tên tệp</th><th>Ngày gửi</th><th>Thao tác</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Phiếu bài tập</h3>
+        <p>Phiếu ôn tập cuối tuần, phiếu bài tập phân hóa học sinh.</p>
+        <button type="button" class="show-resource-form" data-resource-id="phieu-bai-tap">Thêm</button>
+        <form class="resource-upload-form" data-resource-id="phieu-bai-tap" hidden>
+          <input type="file" name="resource-files" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,image/*,video/*" multiple required>
+          <button type="submit">Tải tệp lên</button>
+        </form>
+        <table class="resource-file-table" data-resource-id="phieu-bai-tap" hidden>
+          <thead><tr><th>Tên tệp</th><th>Ngày gửi</th><th>Thao tác</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Đồ dùng dạy học số</h3>
+        <p>Hình ảnh, video minh họa, phần mềm mô phỏng hỗ trợ tiết dạy.</p>
+        <button type="button" class="show-resource-form" data-resource-id="do-dung-day-hoc-so">Thêm</button>
+        <form class="resource-upload-form" data-resource-id="do-dung-day-hoc-so" hidden>
+          <input type="file" name="resource-files" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,image/*,video/*" multiple required>
+          <button type="submit">Tải tệp lên</button>
+        </form>
+        <table class="resource-file-table" data-resource-id="do-dung-day-hoc-so" hidden>
+          <thead><tr><th>Tên tệp</th><th>Ngày gửi</th><th>Thao tác</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 7. Hộp Thư Góp Ý -->
+    <section id="gop-y" class="content-section">
+      <h2>7. Hộp thư góp ý & đóng góp</h2>
+      <div class="card">
+        <h3>Gửi phản hồi chuyên môn</h3>
+        <form id="feedback-form">
+          <input type="text" placeholder="Họ và tên giáo viên (Không bắt buộc)" id="sender">
+          <textarea placeholder="Nhập ý kiến đóng góp hoặc đề xuất hỗ trợ chuyên môn..." id="message" required></textarea>
+          <button type="submit">Gửi góp ý</button>
+        </form>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="document-preview" class="document-preview" hidden>
+    <div class="document-preview-content">
+      <button type="button" id="close-document-preview" class="close-preview">Đóng</button>
+      <h3 id="document-preview-title"></h3>
+      <div id="document-preview-body" class="document-preview-body"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+</body>
+</html>
